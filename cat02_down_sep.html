@@ -29,7 +29,7 @@ body {
   position: fixed; left:0; top:40px;
   width: 260px; height: calc(100vh - 40px);
   background: var(--sidebar-bg);
-  overflow-y: auto; z-index: 100;
+  overflow-y: auto; overflow-x: hidden; z-index: 100;
   border-right: 1px solid var(--border);
 }
 #sidebar::-webkit-scrollbar { width:4px; }
@@ -102,7 +102,7 @@ body {
 
 /* Manager QR section - all in one row */
 .managers-section {
-  padding: 36px 20px 24px;
+  padding: 36px 20px 24px; overflow-x: clip;
   background: linear-gradient(180deg, rgba(15,52,96,0.12) 0%, transparent 100%);
 }
 .mgr-header { text-align: center; margin-bottom: 24px; }
@@ -117,8 +117,10 @@ body {
   flex-wrap: nowrap;
   gap: 10px;
   padding: 4px 0 12px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: stretch;
+  max-width: 100%;
+  overflow-x: auto;
 }
 .mgr-row::-webkit-scrollbar { height: 6px; }
 .mgr-row::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); border-radius:3px; }
@@ -304,7 +306,7 @@ body {
 .footer p { font-size:11px; color:var(--muted); line-height:1.7; }
 
 @media(max-width:768px) {
-  #sidebar { display:none !important; transform:none; }
+  #sidebar { display:none !important; }
   #main { margin-left:0 !important; width:100%; }
   .section { padding:30px 14px; }
   .hero h2 { font-size:26px; }
@@ -578,7 +580,7 @@ body {
   .cat-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
 }
 /* 经理一行展示全部 */
-.mgr-row { flex-wrap: nowrap; justify-content: stretch; padding-bottom: 12px; gap: 10px; }
+.mgr-row { flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 12px; gap: 10px; max-width: 100%; overflow-x: auto; }
 .mgr-card { flex: 1 1 0; min-width: 0; max-width: none; }
 @media (max-width:768px) {
   .mgr-qr { width: 100%; }
@@ -586,6 +588,125 @@ body {
 }
 
 
+</style>
+<style>
+.holiday-overlay {
+  position: fixed; inset: 0; z-index: 99990;
+  overscroll-behavior: contain;
+  touch-action: none;
+  background: rgba(10,10,20,0.82);
+  backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+.holiday-overlay.show { opacity: 1; visibility: visible; }
+.holiday-modal {
+  width: min(980px, 100%); max-height: 88vh;
+  background: #faf7f2; border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  display: flex; flex-direction: column; overflow: hidden;
+  transform: translateY(18px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.holiday-overlay.show .holiday-modal { transform: translateY(0) scale(1); }
+
+.holiday-head {
+  flex: 0 0 auto; display: flex; align-items: center; gap: 14px;
+  padding: 14px 20px; background: linear-gradient(120deg,#c8102e,#a50d24 60%,#7a0a1b);
+  color: #fff;
+}
+.holiday-badge { font-size: 16px; font-weight: 800; letter-spacing: 0.5px; }
+.holiday-count {
+  margin-left: auto; font-size: 13px; font-weight: 700;
+  background: rgba(255,255,255,0.18); padding: 6px 14px; border-radius: 999px;
+  white-space: nowrap;
+}
+.holiday-esc {
+  flex: 0 0 auto; font-size: 12px; font-weight: 800;
+  background: rgba(255,255,255,0.95); color: #7a0a1b;
+  padding: 6px 13px; border-radius: 999px; white-space: nowrap;
+  border: 2px solid #f5b301; box-shadow: 0 0 0 3px rgba(245,179,1,0.35);
+  display: inline-flex; align-items: center; gap: 4px; order: -1;
+}
+.holiday-esc b { background:#7a0a1b; color:#fff; border-radius:4px; padding:1px 6px; font-size:12px; }
+.holiday-more {
+  flex: 0 0 auto; background: #f5b301; border: none; color: #4a2c00;
+  font-size: 13px; font-weight: 800; padding: 8px 18px; border-radius: 999px;
+  cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; white-space: nowrap;
+}
+.holiday-more:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+.holiday-more.is-close { background:#fff; color:#7a0a1b; border:2px solid #7a0a1b; }
+.holiday-more.is-close:hover { background:#f0f0f0; }
+@media(max-width:640px){ .holiday-esc{ order:2; margin-left:0; } }
+
+.holiday-body { overflow-y: auto; padding: 16px 16px 8px; flex: 1 1 auto; min-height: 0; }
+
+/* 国庆必读内部样式（作用于 .holiday-body，避免与站点冲突） */
+.holiday-body *{box-sizing:border-box;margin:0;padding:0;}
+.holiday-body { line-height:1.45; color:#1f2430; }
+.holiday-body .topbar{background:linear-gradient(120deg,#c8102e,#a50d24 60%,#7a0a1b);color:#fff;border-radius:12px;padding:12px 22px;display:flex;align-items:center;gap:18px;margin-bottom:10px;}
+.holiday-body .topbar h1{font-size:22px;font-weight:800;letter-spacing:1px;}
+.holiday-body .topbar .sub{font-size:13px;opacity:.9;margin-top:2px;}
+.holiday-body .topbar .badge{margin-left:auto;flex:0 0 auto;background:#f5b301;color:#4a2c00;padding:7px 16px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap;}
+.holiday-body .core{background:#fff;border-left:6px solid #c8102e;border-radius:10px;padding:10px 16px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:10px;}
+.holiday-body .core .label{font-size:12px;color:#c8102e;font-weight:800;}
+.holiday-body .core p{font-size:15px;font-weight:700;}
+.holiday-body .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.holiday-body .panel{background:#fff;border:1px solid #ece7de;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;}
+.holiday-body .p-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex:0 0 auto;}
+.holiday-body .p-head .num{width:28px;height:28px;flex:0 0 28px;background:#c8102e;color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;}
+.holiday-body .p-head h2{font-size:17px;font-weight:800;}
+.holiday-body .p-head .tag{margin-left:auto;font-size:11px;color:#6b7280;}
+.holiday-body .blk{margin-bottom:12px;flex:0 0 auto;}
+.holiday-body .blk h3{font-size:13px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:6px;color:#c8102e;}
+.holiday-body .blk h3 .dot{width:6px;height:6px;background:#c8102e;border-radius:50%;flex:0 0 6px;}
+.holiday-body ul.clean{list-style:none;}
+.holiday-body ul.clean li{position:relative;padding-left:16px;margin-bottom:4px;font-size:13px;}
+.holiday-body ul.clean li::before{content:"▸";position:absolute;left:0;color:#c8102e;font-weight:700;}
+.holiday-body ul.clean strong{font-weight:800;}
+.holiday-body .formula{background:#f4f7fb;border:1px dashed #c8d4e5;border-radius:8px;padding:8px 12px;font-size:13px;color:#2c3e50;}
+.holiday-body .formula code{background:#e6edf6;padding:1px 6px;border-radius:5px;font-size:12px;}
+.holiday-body .warn{background:#fff6e6;border:1px solid #f3d7a0;border-radius:8px;padding:8px 12px;font-size:12.5px;color:#6b4a00;}
+.holiday-body .warn .t{font-weight:800;color:#b45309;}
+.holiday-body .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:7px;}
+.holiday-body .act{background:#faf7f2;border:1px solid #ece7de;border-radius:8px;padding:8px 10px;text-align:center;}
+.holiday-body .act .name{font-weight:800;font-size:13px;}
+.holiday-body .act .priority{margin-top:3px;font-size:11px;}
+.holiday-body .p-high{color:#c8102e;font-weight:700;}
+.holiday-body .p-mid{color:#b45309;font-weight:700;}
+.holiday-body .p-low{color:#6b7280;font-weight:700;}
+.holiday-body ul.check{list-style:none;}
+.holiday-body ul.check li{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;font-size:13px;}
+.holiday-body ul.check .box{width:16px;height:16px;flex:0 0 16px;margin-top:2px;border:2px solid #c9c2b6;border-radius:4px;}
+.holiday-body .final{background:linear-gradient(135deg,#c8102e,#a50d24);color:#fff;border-radius:12px;padding:12px 18px;text-align:center;margin-bottom:10px;}
+.holiday-body .final h2{font-size:16px;font-weight:800;}
+.holiday-body .final p{font-size:13px;opacity:.95;}
+@media (max-width:720px){
+  .holiday-body .grid2{grid-template-columns:1fr;}
+  .holiday-body .topbar{flex-wrap:wrap;}
+  .holiday-body .topbar .badge{margin-left:0;}
+  .holiday-head{flex-wrap:wrap;}
+  .holiday-count{margin-left:0;}
+}
+
+/* 顶部显眼黄色条（关闭弹窗后显示） */
+.holiday-bar {
+  position: fixed; top: 0; left: 0; width: 100%;
+  z-index: 99980;
+  background: linear-gradient(90deg,#ffb400,#ffd24d 50%,#ffb400);
+  color: #4a2c00; text-align: center;
+  padding: 9px 20px; font-size: 14px; font-weight: 800;
+  cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  display: none; align-items: center; justify-content: center; gap: 10px;
+  transition: transform 0.35s ease;
+  border-bottom: 2px solid #e09c00;
+}
+.holiday-bar.show { display: flex; }
+.holiday-bar .hb-ico { font-size: 16px; }
+.holiday-bar:hover { filter: brightness(1.05); }
+.holiday-bar .hb-hint { font-size: 12px; font-weight: 600; opacity: 0.75; }
 </style>
 </head>
 <body>
@@ -1011,6 +1132,97 @@ function renderNav(){
   document.getElementById('navMenu').innerHTML=html;
 }
 
+</script>
+<script>
+/* ===== 国庆假期商家必读：弹出层 + 顶部黄条 ===== */
+(function(){
+  if (window.__holidayInit) return; window.__holidayInit = true;
+  var overlay, countEl, bar, timer = null, seconds = 10, closed = false, autoRelease = false;
+  function el(id){ return document.getElementById(id); }
+
+  // 注入 DOM
+  function build(){
+    var ov = document.createElement('div');
+    ov.className = 'holiday-overlay';
+    ov.id = 'holidayOverlay';
+    ov.innerHTML = '<div class="holiday-modal">' + '<div class="holiday-page">\n  <div class="holiday-head">\n    <span class="holiday-esc" id="holidayEsc"><b>Esc</b> 退出</span>\n    <span class="holiday-badge">📌 国庆假期商家必读</span>\n    <span class="holiday-count" id="holidayCount">10 秒后自动关闭</span>\n    <button class="holiday-more" id="holidayContinue">继续阅读 ➜</button>\n  </div>\n  <div class="holiday-body">\n    <div class="topbar">\n      <div>\n        <h1>国庆假期商家必读</h1>\n        <div class="sub">假期前最后冲刺 · 库存与活动双线作战</div>\n      </div>\n      <span class="badge">国庆 10.1 - 10.7</span>\n    </div>\n\n    <div class="core">\n      <div class="label">⚠ 核心提醒</div>\n      <p>假期拼的不是爆发，是「有货扛得住流量」。库存和活动，节前是黄金窗口，错过就是断流。</p>\n    </div>\n\n    <div class="grid2">\n      <div class="panel">\n        <div class="p-head"><div class="num">1</div><h2>库存盘点</h2><span class="tag">先保证有货</span></div>\n        <div class="blk">\n          <h3><span class="dot"></span>重点盯三类商品</h3>\n          <ul class="clean">\n            <li><strong>新品</strong>：刚上架、正在起量 → 看还能撑几天</li>\n            <li><strong>热销款</strong>：销量稳定上行 → 按日均销量倒推</li>\n            <li><strong>爆款</strong>：流量巅峰、易断码 → 主力 SKU 必须有货</li>\n          </ul>\n        </div>\n        <div class="blk">\n          <h3><span class="dot"></span>库存红线自检</h3>\n          <div class="formula">可售天数 = 当前可售库存 ÷ 近 7 天日均销量</div>\n          <div class="warn" style="margin-top:6px;">\n            <span class="t">红线：</span>可售天数低于 <strong>3–5 天</strong> 立刻补货，<strong>别拖到 10 月 3、4 号</strong>才发现快售罄。\n          </div>\n        </div>\n        <div class="blk">\n          <h3><span class="dot"></span>辩证看待「断货」</h3>\n          <ul class="clean">\n            <li>大促旺季<strong>断码 = 断流</strong>，其他有货链接会直接抢走流量</li>\n            <li>该<strong>备货</strong>的提前备货，该<strong>发货</strong>的提前发货</li>\n            <li>已跑起来的商品，提前测算发货节奏，避开假期物流波动</li>\n          </ul>\n        </div>\n      </div>\n\n      <div class="panel">\n        <div class="p-head"><div class="num">2</div><h2>活动报名</h2><span class="tag">能报就提前报</span></div>\n        <div class="blk">\n          <h3><span class="dot"></span>为什么现在报</h3>\n          <ul class="clean">\n            <li>国庆本就是<strong>消费节点</strong>，节后 10 月一波接一波</li>\n            <li>活动是<strong>流量入口</strong>，别等节后发现已错过</li>\n          </ul>\n        </div>\n        <div class="blk">\n          <h3><span class="dot"></span>可报活动清单（按优先级）</h3>\n          <div class="grid">\n            <div class="act"><div class="name">重点品牌扶持</div><div class="priority p-high">高</div></div>\n            <div class="act"><div class="name">爆款活动</div><div class="priority p-high">高</div></div>\n            <div class="act"><div class="name">新品活动</div><div class="priority p-high">高</div></div>\n            <div class="act"><div class="name">万人团</div><div class="priority p-mid">中</div></div>\n            <div class="act"><div class="name">满减活动</div><div class="priority p-mid">中</div></div>\n            <div class="act"><div class="name">秋季促销</div><div class="priority p-mid">中</div></div>\n            <div class="act"><div class="name">万圣节活动</div><div class="priority p-mid">中</div></div>\n            <div class="act"><div class="name">Temu Week</div><div class="priority p-mid">中</div></div>\n            <div class="act"><div class="name">黑五/双十一</div><div class="priority p-low">提前关注</div></div>\n            <div class="act"><div class="name">圣诞预热</div><div class="priority p-low">提前关注</div></div>\n          </div>\n        </div>\n        <div class="blk">\n          <h3><span class="dot"></span>报名动作</h3>\n          <ul class="clean">\n            <li>节前翻一遍<strong>后台活动</strong>，逐类核对是否<strong>符合条件</strong></li>\n            <li>符合条件 → <strong>立即报名</strong>，关注审核状态</li>\n            <li>为已报名活动<strong>备足对应库存</strong>（活动=流量，流量=需要货）</li>\n          </ul>\n        </div>\n      </div>\n    </div>\n\n    <div class="grid2">\n      <div class="panel">\n        <div class="p-head"><div class="num">3</div><h2>假期运营检查表</h2><span class="tag">节前逐项打勾</span></div>\n        <ul class="check">\n          <li><span class="box"></span><span>爆款/热销/新品的可售天数已全部测算</span></li>\n          <li><span class="box"></span><span>主力款已完成补货/备货，断码风险已排除</span></li>\n          <li><span class="box"></span><span>符合条件的活动已全部提交报名</span></li>\n          <li><span class="box"></span><span>已报名活动的商品库存已备足</span></li>\n          <li><span class="box"></span><span>售罄/断码的被动局面已尽量避免</span></li>\n        </ul>\n      </div>\n      <div class="panel">\n        <div class="p-head"><div class="num">4</div><h2>10 月关键节点</h2><span class="tag">心里有数</span></div>\n        <ul class="clean">\n          <li><strong>10.1–10.7 国庆</strong>：消费节点+流量高峰，保货、活动在线</li>\n          <li><strong>10 月中 · 万圣节</strong>：节日款提前报名、提前备货</li>\n          <li><strong>10 月下旬 · 秋促/Temu Week</strong>：活动入口密集，查报名状态</li>\n          <li><strong>11 月 · 黑五/双十一</strong>：全年最大流量波，提前备货</li>\n          <li><strong>12 月 · 圣诞预热</strong>：年末收官，提前规划节日款</li>\n        </ul>\n      </div>\n    </div>\n\n    <div class="final">\n      <h2>一句话总结</h2>\n      <p>流量来了没货 = 白瞎。备好货、报好活动，假期才能接得住这波旺季。</p>\n    </div>\n  </div>\n</div>' + '</div>';
+    document.body.appendChild(ov);
+    overlay = ov;
+    countEl = el('holidayCount');
+    var more = el('holidayContinue');
+    if (more) more.addEventListener('click', doContinue);
+
+    var b = document.createElement('div');
+    b.className = 'holiday-bar';
+    b.id = 'holidayBar';
+    b.innerHTML = '<span class="hb-ico">📌</span><span>国庆假期商家必读</span><span class="hb-hint">点击查阅</span>';
+    b.addEventListener('click', doOpen);
+    document.body.appendChild(b);
+    bar = b;
+  }
+
+  function startCountdown(){
+    stopCountdown();
+    seconds = 10;
+    if (countEl) countEl.textContent = seconds + ' 秒后自动关闭';
+    timer = setInterval(function(){
+      seconds--;
+      if (seconds <= 0) {
+        if (autoRelease) { if (countEl) countEl.textContent = '正在阅读 · 按 Esc 退出'; return; }
+        doClose(); return;
+      }
+      if (countEl && !autoRelease) countEl.textContent = seconds + ' 秒后自动关闭';
+    }, 1000);
+  }
+  function stopCountdown(){ if (timer) { clearInterval(timer); timer = null; } }
+  // 点击"继续阅读"：解除自动关闭，仅支持用户手动退出；按钮转为"关闭"
+  function doContinue(){
+    autoRelease = true;
+    stopCountdown();
+    if (countEl) countEl.textContent = '正在阅读 · 按 Esc 退出';
+    var more = el('holidayContinue');
+    if (more) {
+      more.textContent = '关闭 ✕';
+      more.classList.add('is-close');
+      more.removeEventListener('click', doContinue);
+      more.addEventListener('click', doClose);
+    }
+  }
+
+  function doOpen(){
+    if (!overlay) return;
+    autoRelease = false;
+    overlay.classList.add('show');
+    if (bar) bar.classList.remove('show');
+    document.body.style.overflow='hidden';
+    document.documentElement.style.overflow='hidden';
+    startCountdown();
+  }
+  function doClose(){
+    if (!overlay) return;
+    stopCountdown();
+    overlay.classList.remove('show');
+    if (bar) bar.classList.add('show');
+    document.body.style.overflow='';
+    document.documentElement.style.overflow='';
+  }
+
+  // ESC 关闭
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') doClose();
+  });
+
+  // 首屏即弹出开始倒计时
+  function kick(){
+    build();
+    doOpen();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', kick);
+  } else {
+    kick();
+  }
+})();
 </script>
 </body>
 </html>

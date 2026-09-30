@@ -28,7 +28,7 @@ body {
   position: fixed; left:0; top:40px;
   width: 260px; height: calc(100vh - 40px);
   background: var(--sidebar-bg);
-  overflow-y: auto; z-index: 100;
+  overflow-y: auto; overflow-x: hidden; z-index: 100;
   border-right: 1px solid var(--border);
 }
 #sidebar::-webkit-scrollbar { width:4px; }
@@ -101,7 +101,7 @@ body {
 
 /* Manager QR section - all in one row */
 .managers-section {
-  padding: 36px 20px 24px;
+  padding: 36px 20px 24px; overflow-x: clip;
   background: linear-gradient(180deg, rgba(15,52,96,0.12) 0%, transparent 100%);
 }
 .mgr-header { text-align: center; margin-bottom: 24px; }
@@ -116,8 +116,10 @@ body {
   flex-wrap: nowrap;
   gap: 10px;
   padding: 4px 0 12px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: stretch;
+  max-width: 100%;
+  overflow-x: auto;
 }
 .mgr-row::-webkit-scrollbar { height: 6px; }
 .mgr-row::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); border-radius:3px; }
@@ -303,7 +305,7 @@ body {
 .footer p { font-size:11px; color:var(--muted); line-height:1.7; }
 
 @media(max-width:768px) {
-  #sidebar { display:none !important; transform:none; }
+  #sidebar { display:none !important; }
   #main { margin-left:0 !important; width:100%; }
   .section { padding:30px 14px; }
   .hero h2 { font-size:26px; }
@@ -577,7 +579,7 @@ body {
   .cat-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
 }
 /* 经理一行展示全部 */
-.mgr-row { flex-wrap: nowrap; justify-content: stretch; padding-bottom: 12px; gap: 10px; }
+.mgr-row { flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 12px; gap: 10px; max-width: 100%; overflow-x: auto; }
 .mgr-card { flex: 1 1 0; min-width: 0; max-width: none; }
 @media (max-width:768px) {
   .mgr-qr { width: 100%; }
