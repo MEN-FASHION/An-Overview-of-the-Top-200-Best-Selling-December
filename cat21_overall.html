@@ -1,3 +1,4 @@
+<!-- BUILD_V12 2026-09-30 全站折叠+必读弹窗仅首弹-->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -640,7 +641,9 @@ body {
 .holiday-more.is-close:hover { background:#f0f0f0; }
 @media(max-width:640px){ .holiday-esc{ order:2; margin-left:0; } }
 
-.holiday-body { overflow-y: auto; padding: 16px 16px 8px; flex: 1 1 auto; min-height: 0; }
+/* ⚠ 关键修复：holiday-page 须为 flex 纵向容器且限高，内容区才能真正获得滚动高度 */
+.holiday-page { display: flex; flex-direction: column; overflow: hidden; flex: 1 1 auto; min-height: 0; height: 100%; }
+.holiday-body { overflow-y: auto; padding: 16px 16px 8px; flex: 1 1 auto; min-height: 0; -webkit-overflow-scrolling: touch; }
 
 /* 国庆必读内部样式（作用于 .holiday-body，避免与站点冲突） */
 .holiday-body *{box-sizing:border-box;margin:0;padding:0;}
@@ -1102,8 +1105,12 @@ function renderNav(){
     build();
     var shown = false;
     try { shown = !!window.localStorage.getItem('holidayShownOnce'); } catch(e){}
+    if (!shown) { try { shown = document.cookie.indexOf('holidayShown=1') > -1; } catch(e){} }
+    if (!shown) { try { shown = (window.name||'').indexOf('holidayShown') > -1; } catch(e){} }
     if (shown) { if (bar) bar.classList.add('show'); return; }
     try { window.localStorage.setItem('holidayShownOnce','1'); } catch(e){}
+    try { document.cookie = 'holidayShown=1; path=/; max-age=31536000'; } catch(e){}
+    try { window.name = (window.name||'') ? (window.name+'|holidayShown') : 'holidayShown'; } catch(e){}
     doOpen();
   }
   if (document.readyState === 'loading') {
