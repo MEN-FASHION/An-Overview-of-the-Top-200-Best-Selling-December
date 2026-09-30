@@ -593,7 +593,6 @@ body {
 .holiday-overlay {
   position: fixed; inset: 0; z-index: 99990;
   overscroll-behavior: contain;
-  touch-action: none;
   background: rgba(10,10,20,0.82);
   backdrop-filter: blur(6px);
   display: flex; align-items: center; justify-content: center;
@@ -1238,6 +1237,10 @@ function renderNav(){
   // 首屏即弹出开始倒计时
   function kick(){
     build();
+    var shown = false;
+    try { shown = !!window.localStorage.getItem('holidayShownOnce'); } catch(e){}
+    if (shown) { if (bar) bar.classList.add('show'); return; }
+    try { window.localStorage.setItem('holidayShownOnce','1'); } catch(e){}
     doOpen();
   }
   if (document.readyState === 'loading') {
