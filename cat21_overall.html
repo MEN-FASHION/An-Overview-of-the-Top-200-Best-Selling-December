@@ -708,6 +708,34 @@ body {
 .holiday-bar:hover { filter: brightness(1.05); }
 .holiday-bar .hb-hint { font-size: 12px; font-weight: 600; opacity: 0.75; }
 </style>
+<style>
+
+/* ===== 侧边栏折叠抽屉 ===== */
+#sidebar {
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+  transform: translateX(-100%);
+  box-shadow: 8px 0 30px rgba(0,0,0,0.35);
+}
+#main { margin-left: 0; transition: margin-left 0.45s cubic-bezier(0.4,0,0.2,1); }
+body.sb-open #sidebar { transform: translateX(0); }
+body.sb-open #main { margin-left: 260px; }
+#sbToggle {
+  position: fixed; top: 44px; left: 8px; z-index: 200;
+  display: flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; border: none; border-radius: 8px;
+  padding: 8px 14px; font-size: 13px; font-weight: 700;
+  cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  transition: all 0.3s;
+}
+#sbToggle:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+#sbToggle .ico { font-size: 15px; }
+@media(max-width:768px){
+  #sbToggle { display: none !important; }
+  body.sb-open #main { margin-left: 0 !important; }
+}
+
+</style>
 </head>
 <body>
 
@@ -1081,6 +1109,48 @@ function renderNav(){
     kick();
   }
 })();
+</script>
+<script>
+
+/* ===== 侧边栏折叠：打开显示→自动收起 ===== */
+(function(){
+  if (window.__sbInit) return; window.__sbInit = true;
+  var timer = null;
+  function setOpen(open, auto){
+    document.body.classList.toggle('sb-open', open);
+    var t = document.getElementById('sbToggle');
+    if (t){
+      t.querySelector('.ico').textContent = open ? '✕' : '☰';
+      t.querySelector('.txt').textContent = open ? '关闭' : '菜单';
+    }
+    if (auto) scheduleAuto();
+  }
+  function toggle(){ setOpen(!document.body.classList.contains('sb-open'), true); }
+  function scheduleAuto(){
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function(){ if (document.body.classList.contains('sb-open')) setOpen(false, false); }, 4500);
+  }
+  function mk(){
+    var b = document.createElement('button');
+    b.id = 'sbToggle'; b.type = 'button';
+    b.innerHTML = '<span class="ico">☰</span><span class="txt">菜单</span>';
+    b.addEventListener('click', toggle);
+    document.body.appendChild(b);
+  }
+  // 点击侧边栏内任意链接后自动收起
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a');
+    if (a && a.closest('#sidebar')) setTimeout(function(){ setOpen(false, false); }, 350);
+  });
+  mk();
+  // 桌面端初始展开，几秒后自动收起
+  if (window.matchMedia && window.matchMedia('(max-width:768px)').matches){
+    setOpen(false, false);
+  } else {
+    setOpen(true, false); scheduleAuto();
+  }
+})();
+
 </script>
 </body>
 </html>
