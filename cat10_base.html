@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>打底压缩 · 2026年12月TOP200爆款风貌</title>
+<style>
+
+
+:root {
+  --bg: #0a0a14;
+  --sidebar-bg: #101020;
+  --accent: #e94560;
+  --accent2: #0f3460;
+  --text: #e0e0ee;
+  --muted: #7a7a96;
+  --card: #16162a;
+  --border: #22223e;
+  --t: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'PingFang SC','Microsoft YaHei','Helvetica Neue',sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; overflow-x: hidden;
+}
+
+#sidebar {
+  position: fixed; left:0; top:40px;
+  width: 260px; height: calc(100vh - 40px);
+  background: var(--sidebar-bg);
+  overflow-y: auto; z-index: 100;
+  border-right: 1px solid var(--border);
+}
+#sidebar::-webkit-scrollbar { width:4px; }
+#sidebar::-webkit-scrollbar-thumb { background:var(--accent2); border-radius:2px; }
+
+.sb-header {
+  padding: 28px 20px 18px;
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  text-align: center;
+}
+.sb-header h1 { font-size:16px; font-weight:700; color:#fff; letter-spacing:1px; }
+.sb-header p { font-size:11px; color:rgba(255,255,255,0.6); margin-top:5px; }
+
+.nav-sec { border-bottom: 1px solid rgba(255,255,255,0.03); }
+.nav-title {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:13px 20px; font-size:13px; font-weight:600;
+  color: var(--text); cursor:pointer; text-decoration:none;
+  transition: all var(--t); position:relative;
+}
+.nav-title:hover { background:rgba(233,69,96,0.1); color:var(--accent); padding-left:26px; }
+.nav-title::before {
+  content:''; position:absolute; left:0; top:50%;
+  width:3px; height:0; background:var(--accent);
+  transition:height var(--t); transform:translateY(-50%);
+}
+.nav-title:hover::before { height:60%; }
+.nav-title .arr { font-size:10px; transition:transform var(--t); color:var(--muted); }
+.nav-title.open .arr { transform: rotate(90deg); color:var(--accent); }
+
+.nav-sub {
+  max-height:0; overflow:hidden;
+  transition: max-height 0.4s ease;
+  background: rgba(0,0,0,0.15);
+}
+.nav-sub.open { max-height: 600px; }
+.nav-sub a {
+  display:block; padding:8px 20px 8px 38px;
+  font-size:12px; color:var(--muted); text-decoration:none;
+  transition: all var(--t);
+}
+.nav-sub a:hover { color:var(--accent); background:rgba(233,69,96,0.05); padding-left:42px; }
+
+#main { margin-left: 260px; margin-top: 40px; }
+
+.hero {
+  height: 340px;
+  background: linear-gradient(135deg, #0f3460 0%, #0a0a14 50%, #e94560 100%);
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-50%; left:-50%;
+  width:200%; height:200%;
+  background: radial-gradient(circle, rgba(233,69,96,0.1) 0%, transparent 60%);
+  animation: pulse 6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { transform:scale(1); opacity:0.5; }
+  50% { transform:scale(1.1); opacity:0.8; }
+}
+.hero-content { position:relative; z-index:1; }
+.hero h2 {
+  font-size:42px; font-weight:800; letter-spacing:4px;
+  background: linear-gradient(90deg, #fff, var(--accent));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text; margin-bottom:10px;
+}
+.hero p { font-size:14px; color:rgba(255,255,255,0.45); letter-spacing:2px; }
+
+/* Manager QR section - all in one row */
+.managers-section {
+  padding: 36px 20px 24px;
+  background: linear-gradient(180deg, rgba(15,52,96,0.12) 0%, transparent 100%);
+}
+.mgr-header { text-align: center; margin-bottom: 24px; }
+.mgr-header h2 {
+  font-size: 22px; font-weight: 700; color: #fff;
+  letter-spacing: 2px; margin-bottom: 6px;
+}
+.mgr-header p { font-size: 13px; color: var(--muted); }
+
+.mgr-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  padding: 4px 0 12px;
+  justify-content: center;
+  align-items: stretch;
+}
+.mgr-row::-webkit-scrollbar { height: 6px; }
+.mgr-row::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); border-radius:3px; }
+.mgr-row::-webkit-scrollbar-thumb { background: var(--accent2); border-radius:3px; }
+
+.mgr-card {
+  flex: 1 1 0;
+  min-width: 110px;
+  max-width: 175px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 8px;
+  text-align: center;
+  transition: all var(--t);
+}
+.mgr-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 6px 24px rgba(233,69,96,0.2);
+  transform: translateY(-3px);
+}
+.mgr-name {
+  font-size: 14px; font-weight: 700; color: var(--accent);
+  margin-bottom: 2px;
+}
+.mgr-region {
+  font-size: 8px; color: var(--muted); margin-bottom: 6px;
+  line-height: 1.3;
+}
+.mgr-qr {
+  width: 100%; aspect-ratio: 1; max-width: 120px; margin: 0 auto 8px;
+  border-radius: 8px; overflow: hidden;
+  border: 2px solid rgba(233,69,96,0.2);
+  background: #fff;
+}
+.mgr-qr img { width: 100%; height: 100%; object-fit: cover; }
+.mgr-cat {
+  font-size: 8px; color: var(--text);
+  line-height: 1.35; margin-bottom: 6px;
+  min-height: 30px;
+  word-break: break-all;
+}
+.mgr-code {
+  font-size: 10px; color: var(--muted); margin-bottom: 7px;
+}
+.mgr-code .code-text {
+  color: var(--accent); font-weight: 600;
+  font-size: 12px; letter-spacing: 1px;
+}
+.mgr-btn {
+  display: block; width: 100%; padding: 6px 0;
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  color: #fff; font-size: 11px; font-weight: 600;
+  text-decoration: none; border-radius: 6px;
+  transition: all var(--t); text-align: center;
+}
+.mgr-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 3px 12px rgba(233,69,96,0.4);
+}
+
+/* Intro section */
+.intro-section { padding: 36px 40px 0; }
+.intro-card {
+  background: linear-gradient(135deg, rgba(15,52,96,0.3) 0%, rgba(233,69,96,0.08) 100%);
+  border: 1px solid rgba(233,69,96,0.15);
+  border-radius: 12px;
+  padding: 32px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.intro-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+}
+.intro-icon { font-size: 28px; margin-bottom: 8px; }
+.intro-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
+.intro-body p { font-size: 14px; color: var(--text); line-height: 2; margin-bottom: 10px; }
+.intro-body strong { color: var(--accent); font-weight: 600; }
+.intro-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.intro-tags .tag {
+  font-size: 11px; padding: 4px 12px; border-radius: 16px;
+  background: rgba(233,69,96,0.1); border: 1px solid rgba(233,69,96,0.2);
+  color: var(--accent); letter-spacing: 0.5px;
+}
+
+.section { padding: 48px 40px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+.section-header h3 {
+  font-size:26px; font-weight:700; color:#fff;
+  position:relative; padding-left:16px; margin-bottom:28px;
+}
+.section-header h3::before {
+  content:''; position:absolute; left:0; top:50%;
+  width:5px; height:26px; background:var(--accent);
+  border-radius:2px; transform:translateY(-50%);
+}
+
+.subsection { margin-bottom: 36px; scroll-margin-top: 20px; }
+.sub-title {
+  font-size:16px; font-weight:600; color:var(--accent);
+  margin-bottom:16px; padding:9px 14px;
+  background: rgba(233,69,96,0.05);
+  border-left:3px solid var(--accent);
+  border-radius:0 6px 6px 0;
+  display:flex; align-items:center; gap:8px;
+}
+.sub-title .badge {
+  font-size:10px; font-weight:400; background:var(--accent2);
+  color:#fff; padding:2px 7px; border-radius:10px; margin-left:auto;
+}
+
+.img-large {
+  border-radius:8px; overflow:hidden;
+  background:var(--card); border:1px solid var(--border);
+  cursor:zoom-in; padding:6px; margin-bottom:12px;
+  transition: all var(--t);
+}
+.img-large:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(233,69,96,0.2);
+}
+.img-large img { width:100%; height:auto; display:block; object-fit:contain; }
+
+.img-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap:12px;
+}
+.img-card {
+  border-radius:8px; overflow:hidden;
+  background:var(--card); border:1px solid var(--border);
+  cursor:zoom-in; padding:5px;
+  display:flex; align-items:center; justify-content:center;
+  min-height:100px;
+  transition: all var(--t);
+}
+.img-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(233,69,96,0.2);
+  transform: translateY(-2px);
+}
+.img-card img { width:100%; height:auto; max-height:200px; object-fit:contain; display:block; }
+.no-img { padding:16px; color:var(--muted); font-style:italic; font-size:13px; }
+
+#zoom {
+  position:fixed; top:0; left:0; width:100vw; height:100vh;
+  background:rgba(0,0,0,0.93); z-index:9999;
+  display:none; align-items:center; justify-content:center;
+  cursor:zoom-out; backdrop-filter:blur(6px);
+}
+#zoom.on { display:flex; }
+#zoom img {
+  max-width:92vw; max-height:92vh;
+  object-fit:contain; border-radius:6px;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.5);
+  animation: zi 0.3s ease;
+}
+@keyframes zi {
+  from { transform:scale(0.6); opacity:0; }
+  to { transform:scale(1); opacity:1; }
+}
+#zoom-close {
+  position:fixed; top:16px; right:24px;
+  color:#fff; font-size:28px; cursor:pointer; z-index:10000;
+  background:rgba(233,69,96,0.7); width:40px; height:40px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  transition: all var(--t);
+}
+#zoom-close:hover { background:var(--accent); transform:rotate(90deg); }
+#zoom-tip {
+  position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+  color:rgba(255,255,255,0.4); font-size:11px; z-index:10000;
+}
+
+.footer {
+  padding:28px 40px; text-align:center;
+  background:var(--sidebar-bg); border-top:1px solid var(--border);
+}
+.footer .warn { color:var(--accent); font-weight:600; font-size:13px; margin-bottom:6px; }
+.footer p { font-size:11px; color:var(--muted); line-height:1.7; }
+
+@media(max-width:768px) {
+  #sidebar { transform:translateX(-260px); }
+  #main { margin-left:0; }
+  .section { padding:30px 14px; }
+  .hero h2 { font-size:26px; }
+  .img-grid { grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:8px; }
+  .mgr-card { flex: 0 0 130px; }
+  .mgr-qr { width: 90px; height: 90px; }
+}
+
+/* Floating buttons */
+.float-btns {
+  position: fixed;
+  right: 24px;
+  bottom: 80px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.float-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+}
+.float-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.float-btn:hover {
+  transform: scale(1.12);
+}
+.btn-top {
+  background: linear-gradient(135deg, #0f3460, #1a4a7a);
+  color: #fff;
+}
+.btn-top:hover {
+  background: linear-gradient(135deg, #1a4a7a, #2563a0);
+  box-shadow: 0 6px 24px rgba(15,52,96,0.5);
+}
+.btn-bottom {
+  background: linear-gradient(135deg, #e94560, #c81e3a);
+  color: #fff;
+}
+.btn-bottom:hover {
+  background: linear-gradient(135deg, #ff5570, #e94560);
+  box-shadow: 0 6px 24px rgba(233,69,96,0.5);
+}
+.float-btn .tip {
+  position: absolute;
+  right: 58px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--card);
+  color: var(--text);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  border: 1px solid var(--border);
+}
+.float-btn:hover .tip {
+  opacity: 1;
+}
+@media(max-width:768px) {
+  .float-btns { right: 14px; bottom: 60px; }
+  .float-btn { width: 40px; height: 40px; font-size: 16px; }
+}
+
+
+/* Top floating disclaimer banner */
+.top-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background: linear-gradient(90deg, rgba(233,69,96,0.95) 0%, rgba(180,30,60,0.95) 50%, rgba(233,69,96,0.95) 100%);
+  color: #fff;
+  text-align: center;
+  padding: 7px 20px;
+  font-size: 12px;
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  transform: translateY(0);
+  transition: transform 0.4s ease;
+}
+.top-banner.hidden { transform: translateY(-100%); }
+.top-banner .ban-icon { font-size: 14px; flex-shrink: 0; }
+.top-banner .ban-text { font-weight: 500; }
+.top-banner .ban-sep { opacity: 0.5; margin: 0 2px; }
+.top-banner .ban-close {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 2px 6px;
+}
+.top-banner .ban-close:hover { opacity: 1; }
+.top-banner-placeholder { display: none; }
+
+
+/* Engagement features */
+.engagement-bar {
+  display: flex; align-items: center; gap: 16px; margin-top: 16px;
+  padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.06);
+}
+.like-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(233,69,96,0.1); border: 1px solid rgba(233,69,96,0.3);
+  color: var(--accent); padding: 6px 16px; border-radius: 20px;
+  cursor: pointer; font-size: 13px; transition: var(--t); user-select: none;
+}
+.like-btn:hover { background: rgba(233,69,96,0.2); transform: scale(1.05); }
+.like-btn.liked { background: var(--accent); color: #fff; }
+.like-btn .heart { font-size: 16px; }
+.view-count {
+  color: var(--muted); font-size: 12px; display: inline-flex; align-items: center; gap: 4px;
+}
+.comment-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(15,52,96,0.2); border: 1px solid rgba(15,52,96,0.4);
+  color: var(--text); padding: 6px 16px; border-radius: 20px;
+  cursor: pointer; font-size: 13px; transition: var(--t);
+}
+.comment-btn:hover { background: rgba(15,52,96,0.35); }
+.comment-section {
+  margin-top: 12px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+}
+.comment-section.open { max-height: 600px; overflow-y: auto; }
+.comment-input-area {
+  display: flex; gap: 8px; margin-bottom: 12px;
+}
+.comment-input-area input {
+  flex: 1; background: var(--card); border: 1px solid var(--border);
+  color: var(--text); padding: 8px 12px; border-radius: 8px; font-size: 13px;
+}
+.comment-input-area button {
+  background: var(--accent); color: #fff; border: none; padding: 8px 20px;
+  border-radius: 8px; cursor: pointer; font-size: 13px; white-space: nowrap;
+}
+.comment-input-area button:hover { opacity: 0.85; }
+.comment-list { display: flex; flex-direction: column; gap: 8px; }
+.comment-item {
+  background: rgba(255,255,255,0.03); padding: 10px 14px; border-radius: 8px;
+  border-left: 3px solid var(--accent);
+}
+.comment-item .c-name { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.comment-item .c-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+.comment-item .c-time { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.global-stats {
+  position: fixed; bottom: 20px; left: 280px; z-index: 90;
+  background: rgba(16,16,32,0.95); border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 18px; display: flex; gap: 20px;
+  align-items: center; font-size: 13px; backdrop-filter: blur(10px);
+}
+.global-stats .stat-item { display: flex; align-items: center; gap: 6px; }
+.global-stats .stat-num { color: var(--accent); font-weight: 700; font-size: 16px; }
+@media(max-width:768px){
+  .global-stats { left: 14px; right: 14px; bottom: 60px; justify-content: center; }
+}
+
+/* === Floating Feedback === */
+.feedback-fab {
+  position: fixed; right: 28px; bottom: 28px; z-index: 9999;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #e94560, #0f3460);
+  color: #fff; border: none; cursor: pointer;
+  font-size: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fabPulse 2.5s infinite;
+}
+.feedback-fab:hover { transform: scale(1.12); box-shadow: 0 6px 28px rgba(233,69,96,0.5); }
+@keyframes fabPulse {
+  0%,100% { box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+  50% { box-shadow: 0 4px 20px rgba(233,69,96,0.6); }
+}
+.feedback-modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6); z-index: 10000;
+  display: none; align-items: center; justify-content: center;
+  animation: fadeIn 0.25s ease;
+}
+.feedback-modal-overlay.show { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.feedback-modal {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px; width: 90%; max-width: 420px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.feedback-modal h3 {
+  margin: 0 0 6px; font-size: 18px; color: var(--text);
+}
+.feedback-modal .sub-tip {
+  font-size: 12px; color: var(--muted); margin-bottom: 18px;
+}
+.feedback-modal .field-group { margin-bottom: 14px; }
+.feedback-modal .field-group label {
+  display: block; font-size: 13px; color: var(--text); margin-bottom: 5px; font-weight: 600;
+}
+.feedback-modal .field-group input,
+.feedback-modal .field-group textarea {
+  width: 100%; background: var(--card); border: 1px solid var(--border);
+  color: var(--text); padding: 10px 14px; border-radius: 8px; font-size: 14px;
+  box-sizing: border-box; font-family: inherit;
+}
+.feedback-modal .field-group textarea { resize: vertical; min-height: 80px; }
+.feedback-modal .field-group input:focus,
+.feedback-modal .field-group textarea:focus { outline: none; border-color: var(--accent); }
+.feedback-modal .btn-row { display: flex; gap: 10px; margin-top: 18px; }
+.feedback-modal .btn-submit {
+  flex: 1; background: var(--accent); color: #fff; border: none;
+  padding: 11px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600;
+}
+.feedback-modal .btn-submit:hover { opacity: 0.85; }
+.feedback-modal .btn-cancel {
+  background: transparent; color: var(--muted); border: 1px solid var(--border);
+  padding: 11px 20px; border-radius: 8px; cursor: pointer; font-size: 14px;
+}
+.feedback-modal .btn-cancel:hover { background: rgba(255,255,255,0.05); }
+.feedback-success {
+  text-align: center; padding: 20px 0;
+}
+.feedback-success .check {
+  width: 56px; height: 56px; border-radius: 50%; background: #4caf50;
+  color: #fff; font-size: 28px; display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px; animation: pop 0.4s ease;
+}
+@keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+
+.cat-index { padding: 40px 40px 20px; }
+.cat-index-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 18px; letter-spacing: .5px; }
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.cat-card { display: block; background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; text-decoration: none; transition: transform var(--t), border-color var(--t), box-shadow var(--t); }
+.cat-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 8px 24px rgba(0,0,0,.45); }
+.cat-thumb { width: 100%; aspect-ratio: 1/1; background: #0d0d1a; }
+.cat-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cat-name { padding: 10px 12px 4px; color: var(--text); font-size: 14px; font-weight: 700; }
+.cat-go { padding: 0 12px 10px; color: var(--accent); font-size: 12px; font-weight: 600; }
+@media (max-width: 720px) {
+  .cat-index { padding: 24px 14px 16px; }
+  .cat-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+}
+/* 经理一行展示全部 */
+.mgr-row { flex-wrap: nowrap; justify-content: stretch; padding-bottom: 12px; gap: 10px; }
+.mgr-card { flex: 1 1 0; min-width: 0; max-width: none; }
+@media (max-width:768px) {
+  .mgr-qr { width: 100%; }
+  .mgr-card { padding: 10px 6px; }
+}
+
+
+</style>
+</head>
+<body>
+
+<!-- Top floating disclaimer banner -->
+<div class="top-banner" id="topBanner">
+  <span class="ban-icon">⚠️</span>
+  <span class="ban-text">仅用于趋势参考分析，请自行甄别侵权违规，合规是底线不可触碰</span>
+  <span class="ban-sep">|</span>
+  <span class="ban-text">所有图片所有权归原图商家所有，不做任何商业用途</span>
+  <button class="ban-close" onclick="dismissBanner()">✕</button>
+</div>
+<div class="top-banner-placeholder" id="bannerPlaceholder"></div>
+<div id="zoom" onclick="closeZoom()">
+  <div id="zoom-close">✕</div>
+  <img id="zoom-img" src="" alt="">
+  <div id="zoom-tip">点击关闭 · 滚轮缩放 · ESC关闭</div>
+</div>
+<nav id="sidebar"><div class="sb-header"><h1>2026年12月<br>热卖趋势方向</h1><p>TOP200 爆款风貌</p></div><div id="navMenu"></div></nav><script>window.__NAV__={"cur": 10, "cats": [{"ci": 1, "pf": "cat01_down_dec.html", "short": "2025年12月·棉羽", "sectitle": "棉羽(2025年12月) TOP200风貌", "subs": [{"id": "sec-1-0", "title": "棉羽(2025年12月)", "badge": "200张图"}]}, {"ci": 2, "pf": "cat02_down_sep.html", "short": "2026年09月·棉羽", "sectitle": "棉羽(2026年09月) TOP200风貌", "subs": [{"id": "sec-2-0", "title": "棉羽(2026年09月)", "badge": "200张图"}]}, {"ci": 3, "pf": "cat03_hoodie.html", "short": "卫衣帽衫", "sectitle": "卫衣帽衫 TOP200风貌", "subs": [{"id": "sec-3-0", "title": "卫衣帽衫", "badge": "200张图"}]}, {"ci": 4, "pf": "cat04_sweater.html", "short": "毛衣", "sectitle": "毛衣 TOP200风貌", "subs": [{"id": "sec-4-0", "title": "毛衣", "badge": "200张图"}]}, {"ci": 5, "pf": "cat05_outer_jacket.html", "short": "外套夹克", "sectitle": "外套夹克 TOP200风貌", "subs": [{"id": "sec-5-0", "title": "外套夹克", "badge": "200张图"}]}, {"ci": 6, "pf": "cat06_windbreaker.html", "short": "风衣夹克", "sectitle": "风衣夹克 TOP200风貌", "subs": [{"id": "sec-6-0", "title": "风衣夹克", "badge": "200张图"}]}, {"ci": 7, "pf": "cat07_vest.html", "short": "马甲", "sectitle": "马甲 TOP200风貌", "subs": [{"id": "sec-7-0", "title": "马甲", "badge": "200张图"}]}, {"ci": 8, "pf": "cat08_trousers_dec.html", "short": "2025年12月·长裤", "sectitle": "长裤(2025年12月) TOP200风貌", "subs": [{"id": "sec-8-0", "title": "长裤(2025年12月)", "badge": "200张图"}]}, {"ci": 9, "pf": "cat09_trousers_sep.html", "short": "2026年09月·长裤", "sectitle": "长裤(2026年09月) TOP200风貌", "subs": [{"id": "sec-9-0", "title": "长裤(2026年09月)", "badge": "200张图"}]}, {"ci": 10, "pf": "cat10_base.html", "short": "打底压缩", "sectitle": "打底压缩 TOP200风貌", "subs": [{"id": "sec-10-0", "title": "打底压缩", "badge": "200张图"}]}, {"ci": 11, "pf": "cat11_functional.html", "short": "功能服", "sectitle": "功能服 TOP200风貌", "subs": [{"id": "sec-11-0", "title": "功能服", "badge": "200张图"}]}, {"ci": 12, "pf": "cat12_suit_set.html", "short": "套装", "sectitle": "套装 TOP200风貌", "subs": [{"id": "sec-12-0", "title": "套装", "badge": "200张图"}]}, {"ci": 13, "pf": "cat13_suit_jacket.html", "short": "西装", "sectitle": "西装 TOP200风貌", "subs": [{"id": "sec-13-0", "title": "西装", "badge": "195张图"}]}, {"ci": 14, "pf": "cat14_denim.html", "short": "牛仔", "sectitle": "牛仔 TOP200风貌", "subs": [{"id": "sec-14-0", "title": "牛仔", "badge": "200张图"}]}, {"ci": 15, "pf": "cat15_shorts_dec.html", "short": "2025年12月·短裤", "sectitle": "短裤(2025年12月) TOP200风貌", "subs": [{"id": "sec-15-0", "title": "短裤(2025年12月)", "badge": "200张图"}]}, {"ci": 16, "pf": "cat16_shorts_sep.html", "short": "2026年09月·短裤", "sectitle": "短裤(2026年09月) TOP200风貌", "subs": [{"id": "sec-16-0", "title": "短裤(2026年09月)", "badge": "200张图"}]}, {"ci": 17, "pf": "cat17_shirt.html", "short": "衬衫", "sectitle": "衬衫 TOP200风貌", "subs": [{"id": "sec-17-0", "title": "衬衫", "badge": "200张图"}]}, {"ci": 18, "pf": "cat18_tshirt.html", "short": "T恤", "sectitle": "T恤 TOP200风貌", "subs": [{"id": "sec-18-0", "title": "T恤", "badge": "200张图"}]}, {"ci": 19, "pf": "cat19_polo.html", "short": "POLO衫", "sectitle": "POLO衫 TOP200风貌", "subs": [{"id": "sec-19-0", "title": "POLO衫", "badge": "200张图"}]}, {"ci": 20, "pf": "cat20_vest_top.html", "short": "背心", "sectitle": "背心 TOP200风貌", "subs": [{"id": "sec-20-0", "title": "背心", "badge": "200张图"}]}, {"ci": 21, "pf": "cat21_overall.html", "short": "连体背带", "sectitle": "连体背带 TOP200风貌", "subs": [{"id": "sec-21-0", "title": "连体背带", "badge": "58张图"}]}]};</script>
+<div id="main">
+<style>
+.mgr-row{flex-wrap:nowrap !important;justify-content:stretch;gap:10px;padding:4px 0 12px;overflow-x:auto;}
+.mgr-card{flex:1 1 0 !important;min-width:0 !important;max-width:none !important;width:auto;}
+.mgr-cat{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:100%;min-height:0;}
+.mgr-card:hover .mgr-cat{white-space:normal;}
+@media(max-width:768px){.mgr-card{flex:1 1 0 !important;min-width:0 !important;padding:10px 6px;} .mgr-qr{width:100% !important;height:auto;}}
+</style><div class="managers-section"><div class="mgr-header"><h2>TEMU男装半托管 · 招商经理联系卡</h2><p>各经理负责不同地区和类目，扫码添加微信咨询入驻</p></div><div class="mgr-row"><div class="mgr-card"><div class="mgr-name">刀刀</div><div class="mgr-region">美区(美国、加拿大)</div><div class="mgr-qr"><img src="images/qr_m1.jpg" alt="刀刀微信二维码"></div><div class="mgr-cat" title="牛仔裤/牛仔短裤/牛仔夹克/牛仔衬衫/马甲/大衣/风衣">牛仔裤/牛仔短裤/牛仔夹克/牛仔衬衫/马甲/大衣/风衣</div><div class="mgr-code">邀请码: <span class="code-text">rkflzg</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=rkflzg" target="_blank" class="mgr-btn">点击入驻</a></div><div class="mgr-card"><div class="mgr-name">左均久</div><div class="mgr-region">美区(美国、加拿大)</div><div class="mgr-qr"><img src="images/qr_m2.png" alt="左均久微信二维码"></div><div class="mgr-cat" title="卫衣&amp;连帽衫/POLO衫/防晒衫/沙滩裤/泳衣泳裤/传统服饰/潜水服">卫衣&amp;连帽衫/POLO衫/防晒衫/沙滩裤/泳衣泳裤/传统服饰/潜水服</div><div class="mgr-code">邀请码: <span class="code-text">ohbixn</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=ohbixn" target="_blank" class="mgr-btn">点击入驻</a></div><div class="mgr-card"><div class="mgr-name">褚华臻</div><div class="mgr-region">美区(美国、加拿大)</div><div class="mgr-qr"><img src="images/qr_m3.png" alt="褚华臻微信二维码"></div><div class="mgr-cat" title="T恤/背心/棒球&amp;篮球&amp;橄榄球上衣">T恤/背心/棒球&amp;篮球&amp;橄榄球上衣</div><div class="mgr-code">邀请码: <span class="code-text">iveqgw</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=iveqgw" target="_blank" class="mgr-btn">点击入驻</a></div><div class="mgr-card"><div class="mgr-name">定棋洲</div><div class="mgr-region">美区(美国、加拿大)</div><div class="mgr-qr"><img src="images/qr_m4.png" alt="定棋洲微信二维码"></div><div class="mgr-cat" title="T恤/背心/棒球&amp;篮球&amp;橄榄球上衣">T恤/背心/棒球&amp;篮球&amp;橄榄球上衣</div><div class="mgr-code">邀请码: <span class="code-text">cfgfbo</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=cfgfbo" target="_blank" class="mgr-btn">点击入驻</a></div><div class="mgr-card"><div class="mgr-name">林甄嬛</div><div class="mgr-region">美区(美国、加拿大)</div><div class="mgr-qr"><img src="images/qr_m5.png" alt="林甄嬛微信二维码"></div><div class="mgr-cat" title="套装/运动上衣&amp;裤/打底压缩/背带裤/装扮服/连体衣/实用工作服&amp;雨衣">套装/运动上衣&amp;裤/打底压缩/背带裤/装扮服/连体衣/实用工作服&amp;雨衣</div><div class="mgr-code">邀请码: <span class="code-text">ulerzt</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=ulerzt" target="_blank" class="mgr-btn">点击入驻</a></div><div class="mgr-card"><div class="mgr-name">月美惠</div><div class="mgr-region">美区(美国、加拿大)</div><div class="mgr-qr"><img src="images/qr_m6.png" alt="月美惠微信二维码"></div><div class="mgr-cat" title="短裤/长裤/棉服/羽绒服">短裤/长裤/棉服/羽绒服</div><div class="mgr-code">邀请码: <span class="code-text">txmmls</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=txmmls" target="_blank" class="mgr-btn">点击入驻</a></div><div class="mgr-card"><div class="mgr-name">江方思</div><div class="mgr-region">美区(美国、加拿大)</div><div class="mgr-qr"><img src="images/qr_m7.png" alt="江方思微信二维码"></div><div class="mgr-cat" title="西装系列(西装外套/马甲/裤子/套装/正装衬衫)/毛衣">西装系列(西装外套/马甲/裤子/套装/正装衬衫)/毛衣</div><div class="mgr-code">邀请码: <span class="code-text">kxhvnx</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=kxhvnx" target="_blank" class="mgr-btn">点击入驻</a></div><div class="mgr-card"><div class="mgr-name">戚加贝</div><div class="mgr-region">拉美、欧洲、澳洲、非洲</div><div class="mgr-qr"><img src="images/qr_m8.png" alt="戚加贝微信二维码"></div><div class="mgr-cat" title="T恤/背心上衣/套装/球服">T恤/背心上衣/套装/球服</div><div class="mgr-code">邀请码: <span class="code-text">lgbwym</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=lgbwym" target="_blank" class="mgr-btn">点击入驻</a></div><div class="mgr-card"><div class="mgr-name">彦颖霜</div><div class="mgr-region">拉美、欧洲、澳洲、非洲</div><div class="mgr-qr"><img src="images/qr_m9.png" alt="彦颖霜微信二维码"></div><div class="mgr-cat" title="POLO/西装/衬衫/马甲/风衣/大衣/毛衣/传统服饰/连体背带/功能服/打底压缩/长裤/短裤/外套夹克/泳衣泳裤/防晒衫/棉服/羽绒服/卫衣/连帽衫/牛仔裤">POLO/西装/衬衫/马甲/风衣/大衣/毛衣/传统服饰/连体背带/功能服/打底压缩/长裤/短裤/外套夹克/泳衣泳裤/防晒衫/棉服/羽绒服/卫衣/连帽衫/牛仔裤</div><div class="mgr-code">邀请码: <span class="code-text">leyjep</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=leyjep" target="_blank" class="mgr-btn">点击入驻</a></div><div class="mgr-card"><div class="mgr-name">李哲闻</div><div class="mgr-region">美区(美国、加拿大)</div><div class="mgr-qr"><img src="images/qr_m10.jpg" alt="李哲闻微信二维码"></div><div class="mgr-cat" title="衬衫/马甲">衬衫/马甲</div><div class="mgr-code">邀请码: <span class="code-text">amrczt</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=amrczt" target="_blank" class="mgr-btn">点击入驻</a></div><div class="mgr-card"><div class="mgr-name">柏拉困</div><div class="mgr-region">美区(美国、加拿大)</div><div class="mgr-qr"><img src="images/qr_m11.png" alt="柏拉困微信二维码"></div><div class="mgr-cat" title="T恤/背心/棒球&amp;篮球&amp;橄榄球上衣">T恤/背心/棒球&amp;篮球&amp;橄榄球上衣</div><div class="mgr-code">邀请码: <span class="code-text">mzfvdd</span></div><a href="https://seller.kuajingmaihuo.com/mobile-main/register.html?invitationCode=mzfvdd" target="_blank" class="mgr-btn">点击入驻</a></div></div></div></div></div></div><div class="section-header" style="margin:28px 40px 8px;"><h2 id="pageBigTitle" style="display:inline;"></h2></div>
+<div class="section" id="sec-10-0">
+<div class="sub-title">打底压缩 <span class="badge">200张图</span></div>
+<div class="engagement-bar" data-section="sec-10-0"><div class="like-btn" onclick="toggleLike('sec-10-0')"><span class="heart">♥</span> <span class="like-count" id="likes-sec-10-0">0</span></div><div class="view-count">👁 <span id="views-sec-10-0">0</span> 次浏览</div></div>
+<div class="img-grid">
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_001.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_002.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_003.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_004.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_005.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_006.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_007.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_008.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_009.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_010.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_011.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_012.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_013.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_014.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_015.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_016.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_017.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_018.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_019.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_020.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_021.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_022.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_023.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_024.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_025.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_026.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_027.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_028.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_029.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_030.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_031.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_032.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_033.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_034.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_035.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_036.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_037.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_038.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_039.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_040.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_041.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_042.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_043.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_044.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_045.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_046.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_047.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_048.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_049.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_050.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_051.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_052.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_053.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_054.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_055.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_056.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_057.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_058.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_059.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_060.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_061.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_062.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_063.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_064.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_065.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_066.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_067.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_068.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_069.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_070.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_071.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_072.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_073.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_074.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_075.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_076.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_077.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_078.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_079.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_080.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_081.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_082.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_083.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_084.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_085.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_086.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_087.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_088.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_089.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_090.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_091.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_092.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_093.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_094.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_095.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_096.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_097.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_098.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_099.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_100.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_101.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_102.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_103.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_104.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_105.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_106.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_107.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_108.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_109.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_110.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_111.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_112.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_113.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_114.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_115.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_116.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_117.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_118.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_119.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_120.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_121.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_122.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_123.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_124.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_125.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_126.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_127.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_128.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_129.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_130.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_131.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_132.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_133.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_134.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_135.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_136.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_137.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_138.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_139.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_140.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_141.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_142.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_143.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_144.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_145.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_146.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_147.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_148.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_149.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_150.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_151.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_152.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_153.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_154.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_155.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_156.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_157.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_158.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_159.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_160.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_161.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_162.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_163.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_164.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_165.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_166.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_167.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_168.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_169.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_170.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_171.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_172.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_173.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_174.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_175.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_176.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_177.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_178.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_179.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_180.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_181.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_182.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_183.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_184.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_185.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_186.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_187.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_188.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_189.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_190.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_191.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_192.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_193.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_194.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_195.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_196.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_197.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_198.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_199.webp" alt="打底压缩" loading="lazy"></div>
+<div class="img-card" onclick="openZoom(this)"><img src="images/c10_200.webp" alt="打底压缩" loading="lazy"></div>
+</div>
+</div>
+<div class="footer"><p class="warn">⚠️ 图片仅供参考，请注意规避侵权和违规禁忌</p></div>
+</div>
+<div class="global-stats" id="globalStats">
+  <div class="stat-item">👁 总浏览 <span class="stat-num" id="totalViews">0</span></div>
+  <div class="stat-item">♥ 总点赞 <span class="stat-num" id="totalLikes">0</span></div>
+</div>
+<div class="float-btns">
+  <button class="float-btn btn-top" id="btnTop" onclick="scrollToTop()">↑<span class="tip">回到顶部</span></button>
+  <button class="float-btn btn-bottom show" id="btnBottom" onclick="scrollToBottom()">↓<span class="tip">回到底部</span></button>
+</div>
+<button class="feedback-fab" onclick="openFeedback()" title="意见反馈">💬</button>
+<div class="feedback-modal-overlay" id="feedbackOverlay" onclick="if(event.target===this)closeFeedback()">
+  <div class="feedback-modal" id="feedbackModal">
+    <div id="feedbackFormWrap">
+      <h3>📝 意见反馈</h3>
+      <div class="sub-tip">欢迎商家留下反馈意见，我们会及时与您联系</div>
+      <div class="field-group"><label>微信号</label>
+        <input type="text" id="fb-wechat" placeholder="请输入您的微信号" maxlength="50"></div>
+      <div class="field-group"><label>手机号</label>
+        <input type="tel" id="fb-phone" placeholder="请输入您的手机号" maxlength="20"></div>
+      <div class="field-group"><label>反馈内容</label>
+        <textarea id="fb-content" placeholder="请写下您的意见或建议..." maxlength="1000"></textarea></div>
+      <div class="btn-row">
+        <button class="btn-cancel" onclick="closeFeedback()">取消</button>
+        <button id="fb-submit" class="btn-submit" onclick="submitFeedback()">提交反馈</button>
+      </div>
+    </div>
+    <div id="feedbackSuccessWrap" style="display:none;">
+      <div class="feedback-success"><div class="check">✓</div>
+        <h3 style="margin-bottom:8px;">提交成功</h3>
+        <p style="color:var(--muted);font-size:13px;">感谢您的反馈，我们会尽快与您联系！</p></div>
+      <div class="btn-row"><button class="btn-submit" style="flex:1;" onclick="closeFeedback()">关闭</button></div>
+    </div>
+  </div>
+</div>
+<script>
+
+function openZoom(card){
+  var img=card.querySelector('img');
+  if(!img)return;
+  document.getElementById('zoom-img').src=img.src;
+  document.getElementById('zoom').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeZoom(){
+  document.getElementById('zoom').classList.remove('on');
+  document.body.style.overflow='';
+  document.getElementById('zoom-img').style.transform='scale(1)';
+}
+var zScale=1;
+document.addEventListener('DOMContentLoaded',function(){
+  var overlay=document.getElementById('zoom');
+  var zImg=document.getElementById('zoom-img');
+  overlay.addEventListener('wheel',function(e){
+    e.preventDefault();
+    if(e.deltaY<0){zScale=Math.min(zScale+0.15,4);}
+    else{zScale=Math.max(zScale-0.15,0.4);}
+    zImg.style.transform='scale('+zScale+')';
+  });
+  var obs=new MutationObserver(function(){
+    if(!overlay.classList.contains('on')){zScale=1;zImg.style.transform='scale(1)';}
+  });
+  obs.observe(overlay,{attributes:true,attributeFilter:['class']});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.querySelector(this.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+  initStats();
+  renderNav();
+});
+window.addEventListener('scroll', function() {
+  var st = window.pageYOffset || document.documentElement.scrollTop;
+  var docH = document.documentElement.scrollHeight - window.innerHeight;
+  var btnTop = document.getElementById('btnTop'), btnBottom = document.getElementById('btnBottom');
+  if (st > 300) { btnTop.classList.add('show'); } else { btnTop.classList.remove('show'); }
+  if (st > docH - 200) { btnBottom.classList.remove('show'); } else { btnBottom.classList.add('show'); }
+});
+function scrollToTop(){ window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function scrollToBottom(){ window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' }); }
+function dismissBanner(){ document.getElementById('topBanner').classList.add('hidden'); document.getElementById('bannerPlaceholder').style.display='block'; }
+var LS_LIKES='nov_likes', LS_VIEWS='nov_views', PAGE_ID='nov2026';
+function totalLikes(){ var o={}; try{o=JSON.parse(localStorage.getItem(LS_LIKES)||'{}');}catch(e){} return o; }
+function stotalLikes(){ var o=totalLikes(); var n=0; for(var k in o){ if(o[k]) n++; } return n; }
+function views(){ var o={}; try{o=JSON.parse(localStorage.getItem(LS_VIEWS)||'{}');}catch(e){} return o; }
+function toggleLike(secId){
+  var o=totalLikes(); o[secId]=!o[secId];
+  localStorage.setItem(LS_LIKES,JSON.stringify(o));
+  var el=document.getElementById('likes-'+secId);
+  if(el){ el.textContent=o[secId]?'1':'0'; var btn=el.closest('.like-btn'); if(btn)btn.classList.toggle('liked',!!o[secId]); }
+  initGlobal();
+}
+function initStats(){
+  var v=views(), dv=1; try{ dv=parseInt(localStorage.getItem('nov_gview')||'0',10)||0; }catch(e){}
+  if(!v[PAGE_ID]){ v[PAGE_ID]=dv+1; localStorage.setItem('nov_gview',String(dv+1)); localStorage.setItem(LS_VIEWS,JSON.stringify(v)); }
+  var l=totalLikes();
+  document.querySelectorAll('[data-section]').forEach(function(s){
+    var sid=s.getAttribute('data-section');
+    var ve=document.getElementById('views-'+sid); if(ve)ve.textContent=(v[PAGE_ID]||0);
+    var le=document.getElementById('likes-'+sid);
+    if(le){ le.textContent=(l[sid]?'1':'0'); var btn=le.closest('.like-btn'); if(btn)btn.classList.toggle('liked',!!l[sid]); }
+  });
+  initGlobal();
+}
+function initGlobal(){
+  var v=views();
+  var ev=document.getElementById('totalViews'); if(ev)ev.textContent=(v[PAGE_ID]||0);
+  var el=document.getElementById('totalLikes'); if(el)el.textContent=stotalLikes();
+}
+function openFeedback(){
+  document.getElementById('feedbackOverlay').classList.add('show');
+  document.getElementById('feedbackFormWrap').style.display='block';
+  document.getElementById('feedbackSuccessWrap').style.display='none';
+}
+function closeFeedback(){ document.getElementById('feedbackOverlay').classList.remove('show'); }
+function submitFeedback(){
+  var wechat=document.getElementById('fb-wechat').value.trim();
+  var phone=document.getElementById('fb-phone').value.trim();
+  var content=document.getElementById('fb-content').value.trim();
+  if(!wechat&&!phone){alert('请至少填写微信号或手机号，方便我们联系您');return;}
+  if(!content){document.getElementById('fb-content').focus();return;}
+  var btn=document.getElementById('fb-submit');
+  btn.textContent='提交中...';btn.disabled=true;
+  var list=[]; try{list=JSON.parse(localStorage.getItem('nov_feedback')||'[]');}catch(e){}
+  list.push({wechat:wechat,phone:phone,content:content,time:new Date().toISOString()});
+  localStorage.setItem('nov_feedback',JSON.stringify(list));
+  document.getElementById('fb-wechat').value='';
+  document.getElementById('fb-phone').value='';
+  document.getElementById('fb-content').value='';
+  document.getElementById('feedbackFormWrap').style.display='none';
+  document.getElementById('feedbackSuccessWrap').style.display='block';
+  btn.textContent='提交反馈';btn.disabled=false;
+}
+function cn_num_js(i){
+  var CN='一二三四五六七八九十';
+  if(i<=10) return CN[i-1]+'.';
+  var t=Math.floor(i/10), o=i%10;
+  if(o===0) return (t>1?CN[t-1]:'')+'十'+'.';
+  return (t>1?CN[t-1]:'')+'十'+CN[o-1]+'.';
+}
+function renderNav(){
+  var nav=window.__NAV__; if(!nav||!nav.cats||!nav.cats.length) return;
+  var cats=nav.cats, cur=nav.cur, LS='nov_order_v2028';
+  var order=null;
+  try{ order=JSON.parse(localStorage.getItem(LS)||'null'); }catch(e){}
+  var valid=order&&order.length===cats.length&&order.every(function(ci){return cats.some(function(c){return c.ci===ci;});});
+  if(!valid){
+    if(cur!=null){
+      order=[cur]; cats.forEach(function(c){ if(c.ci!==cur) order.push(c.ci); });
+      try{ localStorage.setItem(LS,JSON.stringify(order)); }catch(e){}
+    } else {
+      order=cats.map(function(c){return c.ci;});
+    }
+  }
+  var byCi={}; cats.forEach(function(c){ byCi[c.ci]=c; });
+  var html='';
+  order.forEach(function(ci,idx){
+    var c=byCi[ci]; if(!c) return;
+    var num=cn_num_js(idx+1);
+    var active=(ci===cur);
+    if(active&&c.subs&&c.subs.length){
+      html+='<div class="nav-sec"><a href="#sec-'+c.ci+'" class="nav-title open" id="nt-'+c.ci+'"><span>'+num+c.short+'</span><span class="arr">▶</span></a>';
+      html+='<div class="nav-sub open" id="ns-'+c.ci+'">';
+      c.subs.forEach(function(g){ html+='<a href="#'+g.id+'">'+g.title+' <span style="opacity:0.5;font-size:11px">('+g.badge+')</span></a>'; });
+      html+='</div></div>';
+    } else {
+      var tgt = active ? ('#sec-'+c.ci+'-0') : c.pf;
+      html+='<div class="nav-sec"><a href="'+tgt+'" class="nav-title'+(active?' open':'')+'"><span>'+num+c.short+'</span></a></div>';
+    }
+    if(active){
+      var bt=document.getElementById('pageBigTitle');
+      if(bt){ var st=c.sectitle; bt.innerHTML = num + st; }
+    }
+  });
+  document.getElementById('navMenu').innerHTML=html;
+}
+
+</script>
+</body>
+</html>
